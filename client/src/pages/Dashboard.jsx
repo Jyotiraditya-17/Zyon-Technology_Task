@@ -1,53 +1,165 @@
-/*import React, { useState, useEffect } from 'react'
-import { Button } from 'antd';
-import axios from 'axios';
+import { useState } from 'react';
+import { Table, Avatar, Button, Space } from 'antd';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
+  const [employees] = useState([
+    {
+      id: 'WY01',
+      image: 'https://randomuser.me/api/portraits/men/1.jpg',
+      name: 'Will Williams',
+      email: 'williams@gmail.com',
+      contact: '2457878540',
+      identity: 'Passport - 012345678',
+      dob: '1995-04-01',
+      joining: '2019-01-29',
+      blood: 'B+',
+      type: 'Permanent Position',
+    },
+    {
+      id: 'WY02',
+      image: 'https://randomuser.me/api/portraits/men/2.jpg',
+      name: 'AB Leo Allen',
+      email: 'leoallen06905@gmail.com',
+      contact: '2450157695',
+      identity: 'Passport - 914575421',
+      dob: '2000-12-15',
+      joining: '2020-04-01',
+      blood: 'AB+',
+      type: 'Permanent Position',
+    },
+    {
+      id: 'WY03',
+      image: 'https://randomuser.me/api/portraits/women/1.jpg',
+      name: 'Christen Moore',
+      email: 'moorechristen@gmail.com',
+      contact: '4578545555',
+      identity: 'Passport - 100035420',
+      dob: '1995-04-20',
+      joining: '2021-04-01',
+      blood: 'A+',
+      type: 'Part-time Employee',
+    },
+    {
+      id: 'WY04',
+      image: 'https://randomuser.me/api/portraits/men/3.jpg',
+      name: 'John Carter',
+      email: 'johncarter@gmail.com',
+      contact: '9876543210',
+      identity: 'Passport - 234567890',
+      dob: '1992-07-15',
+      joining: '2018-06-10',
+      blood: 'O+',
+      type: 'Permanent Position',
+    },
+    {
+      id: 'WY05',
+      image: 'https://randomuser.me/api/portraits/women/2.jpg',
+      name: 'Emily Clark',
+      email: 'emilyclark@gmail.com',
+      contact: '8765432109',
+      identity: 'Passport - 345678901',
+      dob: '1993-11-23',
+      joining: '2017-09-12',
+      blood: 'B-',
+      type: 'Permanent Position',
+    },
+    {
+      id: 'WY06',
+      image: 'https://randomuser.me/api/portraits/men/4.jpg',
+      name: 'Michael Smith',
+      email: 'michaelsmith@gmail.com',
+      contact: '7654321098',
+      identity: 'Passport - 456789012',
+      dob: '1989-03-30',
+      joining: '2016-02-18',
+      blood: 'A-',
+      type: 'Contract Employee',
+    },
+    {
+      id: 'WY07',
+      image: 'https://randomuser.me/api/portraits/women/3.jpg',
+      name: 'Sophia Turner',
+      email: 'sophiaturner@gmail.com',
+      contact: '6543210987',
+      identity: 'Passport - 567890123',
+      dob: '1998-05-10',
+      joining: '2022-01-05',
+      blood: 'O-',
+      type: 'Part-time Employee',
+    },
+    {
+      id: 'WY08',
+      image: 'https://randomuser.me/api/portraits/men/5.jpg',
+      name: 'David Lee',
+      email: 'davidlee@gmail.com',
+      contact: '5432109876',
+      identity: 'Passport - 678901234',
+      dob: '1990-09-19',
+      joining: '2015-11-20',
+      blood: 'AB-',
+      type: 'Permanent Position',
+    },
+    {
+      id: 'WY09',
+      image: 'https://randomuser.me/api/portraits/women/4.jpg',
+      name: 'Olivia Brown',
+      email: 'oliviabrown@gmail.com',
+      contact: '4321098765',
+      identity: 'Passport - 789012345',
+      dob: '1997-02-28',
+      joining: '2021-08-15',
+      blood: 'B+',
+      type: 'Contract Employee',
+    },
+    {
+      id: 'WY10',
+      image: 'https://randomuser.me/api/portraits/men/6.jpg',
+      name: 'James Wilson',
+      email: 'jameswilson@gmail.com',
+      contact: '3210987654',
+      identity: 'Passport - 890123456',
+      dob: '1994-12-05',
+      joining: '2019-03-22',
+      blood: 'A+',
+      type: 'Permanent Position',
+    },
+  ]);
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/user`, { withCredentials: true })
-      .then(res => setUser(res.data))
-      .catch(() => window.location.href = '/');
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
-  }
+  const columns = [
+    { title: 'ID', dataIndex: 'id', key: 'id' },
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      key: 'image',
+      render: (img) => <Avatar src={img} />
+    },
+    { title: 'Name', dataIndex: 'name', key: 'name', render: (text) => <a>{text}</a> },
+    { title: 'Email', dataIndex: 'email', key: 'email' },
+    { title: 'Contact', dataIndex: 'contact', key: 'contact' },
+    { title: 'Identity', dataIndex: 'identity', key: 'identity' },
+    { title: 'DOB', dataIndex: 'dob', key: 'dob' },
+    { title: 'Joining', dataIndex: 'joining', key: 'joining' },
+    { title: 'Blood', dataIndex: 'blood', key: 'blood' },
+    { title: 'Emp Type', dataIndex: 'type', key: 'type' },
+    {
+      title: 'Action',
+      key: 'action',
+      render: () => (
+        <Space>
+          <Button type="primary">View</Button>
+          <Button>Edit</Button>
+          <Button danger>Delete</Button>
+        </Space>
+      )
+    }
+  ];
 
   return (
-    <div className='p-8'>
-      <h1>Dashboard</h1>
-      {user && (
-        <p>
-          Welcome {user.given_name ? user.given_name : user.name} ({user.email})
-        </p>
-      )}
-      <Button onClick={logout} type='primary' danger className="mt-4">
-        Logout
-      </Button>
-    </div>
-  )
-}
-
-export default Dashboard */
-
-
-import { Button } from "antd";
-
-export default function Dashboard() {
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
-
-  return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <Button danger onClick={logout}>Logout</Button>
+    <div className="p-4">
+      <h1 className="text-2xl font-semibold mb-4">All Employee List</h1>
+      <Table columns={columns} dataSource={employees} rowKey="id" />
     </div>
   );
-}
+};
 
+export default Dashboard;

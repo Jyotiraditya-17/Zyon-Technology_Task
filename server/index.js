@@ -36,14 +36,23 @@ app.get('/auth/google/callback' , passport.authenticate("google",{
 }
 );
 
-app.get("/profile" , (req,res) => {
-    if(req.isAuthenticated()) {
+app.get("/api/user", (req, res) => {
+    if (req.isAuthenticated()) {
         res.send(req.user);
-    }
-    else {
+    } else {
         res.status(401).send("Unauthorized");
     }
-})
+});
+
+app.get("/logout", (req, res) => {
+    req.logout(function(err) {
+        if (err) { return res.status(500).send("Logout failed"); }
+        req.session.destroy(() => {
+            res.clearCookie('connect.sid');
+            res.send({ message: "Logged out successfully" });
+        });
+    });
+});
 
 
 
